@@ -177,6 +177,7 @@
             this.TotalMonthlySales.Name = "TotalMonthlySales";
             this.TotalMonthlySales.Size = new System.Drawing.Size(148, 26);
             this.TotalMonthlySales.TabIndex = 12;
+            this.TotalMonthlySales.TextChanged += new System.EventHandler(this.TotalMonthlySales_TextChanged);
             // 
             // SalesBonus
             // 

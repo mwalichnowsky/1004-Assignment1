@@ -49,9 +49,13 @@ namespace Assignment_1
                 EmployeeNameLabel.Text = "Employee Name:";
                 EmployeeIDLabel.Text = "Employee ID:";
                 TotalHoursWorkedLabel.Text = "Total Hours Worked:";
-                TotalHoursWorkedLabel.Text = "Total Hours Worked:";
+                TotalMonthlySalesLabel.Text = "Total Monthly Sales:";
                 SalesBonusLabel.Text = "Sales Bonus Label:";
-            }
+                CalculateButton.Text = "Calculate";
+                Print.Text = "Print";
+                ClearButton.Text = "Clear";
+                ExitButton.Text = "Exit";
+        }
 
             private void French_CheckedChanged(object sender, EventArgs e)
             {
@@ -60,9 +64,13 @@ namespace Assignment_1
                 EmployeeNameLabel.Text = "Nom de l'employé:";
                 EmployeeIDLabel.Text = "ID de employé:";
                 TotalHoursWorkedLabel.Text = "Total des heures travaillées:";
-                TotalHoursWorkedLabel.Text = "Total des heures travaillées:";
+                TotalMonthlySalesLabel.Text = "Ventes mensuelles totales:";
                 SalesBonusLabel.Text = "Bonus de vente Étiquette:";
-            }
+                CalculateButton.Text = "Calculer";
+                Print.Text = "Impression";
+                ClearButton.Text = "Clair";
+                ExitButton.Text = "Sortie";
+        }
 
             private void Spanish_CheckedChanged(object sender, EventArgs e)
             {
@@ -70,9 +78,13 @@ namespace Assignment_1
                 EmployeeNameLabel.Text = "Nombre de empleado:";
                 EmployeeIDLabel.Text = "ID de empleado:";
                 TotalHoursWorkedLabel.Text = "Total de horas trabajadas:";
-                TotalHoursWorkedLabel.Text = "Total de horas trabajadas:";
+                TotalMonthlySalesLabel.Text = "Las ventas totales mensuales:";
                 SalesBonusLabel.Text = "Bono de ventas de etiquetas:";
-            }
+                CalculateButton.Text = "Calcular";
+                Print.Text = "Impresión";
+                ClearButton.Text = "Claro";
+                ExitButton.Text = "Salida";
+        }
 
         /* -------- End of Language -------------------------------------------------- */
 
@@ -88,10 +100,25 @@ namespace Assignment_1
                 {
                     try
                     {
+                        // Convert textbox to double.
+                        PercentageOfHours = Convert.ToDouble(TotalHoursWorked.Text);
+
+                        // Check if number is between 0 and 160.
+                        try
+                        {
+                            if (PercentageOfHours < 0 | PercentageOfHours > 160)
+                            {
+                                throw new Exception("Please enter a number between 0 and 160.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
                         /* Divide the Total Hours Worked by 160. This will determine the Percentage of
                          * hours worked during the bonus period. 
                          */
-                        PercentageOfHours = Convert.ToDouble(TotalHoursWorked.Text);
                         PercentageOfHours = PercentageOfHours / 160;
                     }
                     catch
@@ -110,6 +137,7 @@ namespace Assignment_1
                         }
                     }
 
+                    // Check for valid input.
                     try
                     {
                         /* Multiply Total Monthly Sales by 0.02 – This will calculate 2% of Sales which is
@@ -122,15 +150,15 @@ namespace Assignment_1
                     {
                         if (Language == "English")
                         {
-                            MessageBox.Show(TotalMonthlySales.Text + " is an invalid entry.");
+                            MessageBox.Show(TotalMonthlySales.Text + " is an invalid entry. Must be numeric.");
                         }
                         else if (Language == "French")
                         {
-                            MessageBox.Show(":( est une entrée non valide.");
+                            MessageBox.Show(":( est une entrée non valide. Doit être numérique.");
                         }
                         else if (Language == "Spanish")
                         {
-                            MessageBox.Show(":( es una entrada no válida.");
+                            MessageBox.Show(":( es una entrada no válida. Debe ser numérico.");
                         }
                     }
 
@@ -139,7 +167,8 @@ namespace Assignment_1
                         /* Multiply the Percentage of Hours Worked by the Total Bonus Amount. This will
                          * determine the value you need to display in the Sales Bonus Text Field.
                          */
-                        SalesBonus.Text = Convert.ToString(PercentageOfHours * SalesPercent);
+                        SalesBonus.Text = String.Format("{0:C}", PercentageOfHours * SalesPercent);
+
                     }
                     catch
                     {
@@ -162,7 +191,19 @@ namespace Assignment_1
                 {
                     MessageBox.Show(":( General error.");
                 }
-            } // End of Calculate method.
+
+            try
+            {
+                // Converts to a currency format.
+                double tempInput = Convert.ToDouble(TotalMonthlySales.Text);
+                TotalMonthlySales.Text = String.Format("{0:C}", tempInput);
+            }
+            catch
+            {
+                MessageBox.Show(":( Error while converting monthly sales to currency format.");
+            }
+                
+        } // End of Calculate method.
 
             private void Print_Click(object sender, EventArgs e)
             {
@@ -211,32 +252,26 @@ namespace Assignment_1
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
-
-
-
         private void SalesBonus_TextChanged(object sender, EventArgs e)
         {
             
         }
-
-
         private void TotalHoursWorked_TextChanged(object sender, EventArgs e)
         {
 
         }
 
- 
-
-
+        private void TotalMonthlySales_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
     } // End of form1 class.
 } // End of namespace Assignment 1.
